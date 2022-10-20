@@ -1,19 +1,34 @@
 import * as React from 'react';
-import { useState} from 'react';
+import { useReducer} from 'react';
 import { Button } from '@mui/material';
 import { ButtonGroup } from '@mui/material';
 import { Box } from '@mui/material';
 
+const initialState = 0
+const reducer = (state, action) => {
+  switch (action) {
+    case "increment":
+      return state + 1
+    case "decrement":
+      return state-1
+    default:
+      return state
+    
+  }
+}
 export default function Ingredients(props){
-  const [ingredientCount, setIngredientCount] = useState(0)
+
+  const [count, dispatch] = useReducer(reducer, initialState)
+ 
   const Add = () => {
-    setIngredientCount(state=> state + 1); 
+    dispatch("increment")
     props.total(props.price + props.totalPrice, props.item,  "add")
   }
   
   const Remove = () => {
-    if(ingredientCount > 0 ){
-      setIngredientCount(state=> state - 1); 
+    if(count > 0 ){
+
+      dispatch("decrement")
       props.total( props.totalPrice - props.price , props.item, "remove")
     }
   }
@@ -31,7 +46,7 @@ export default function Ingredients(props){
             <Button variant="contained" onClick={Remove} >Remove</Button>
           </ButtonGroup>
         </Box>
-      <div>{ingredientCount}</div>
+      <div>{count}</div>
     </div>
   );
 }

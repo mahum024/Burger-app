@@ -2,87 +2,92 @@ import './App.css';
 import top from '../src/assets/top.jpg'
 import bottom from '../src/assets/bottom.jpg'
 import Ingredients from './components/Ingredients';
-import { useState, useEffect } from 'react';
+import { useState, useReducer } from 'react';
 import { Stack } from '@mui/system';
 import BurgerFilling from './components/BurgerFilling';
 
+const initialState = 0
+
+const reducer = (state, action) => {
+  switch (action) {
+    case "increment":
+      return state + 1
+    case "decrement":
+      return state - 1
+    default :
+     break;
+  }
+}
+
 function App() {
-  const [totalAmount, setTotal] = useState(100)
-  const [tomatoCount, setTomatoCount] = useState(0)
-  const [meatCount, setMeatCount] = useState(0)
-  const [lettuseount, setLettuseCount] = useState(0)
-  const [cheeseCount, setCheeseount] = useState(0)
-  
-  useEffect(()=>{
-    setTomatoCount(prev => prev)
-    setCheeseount(prev => prev)
-    setMeatCount(prev => prev)
-    setLettuseCount(prev => prev)
+
+  const [tomatoCount, dispatchTomato] = useReducer(reducer, initialState)
+  const [meatCount, dispatchMeat] = useReducer(reducer, initialState)
+  const [lettuseCount, dispatchLettuse] = useReducer(reducer, initialState)
+  const [cheeseCount, dispatchCheese] = useReducer(reducer, initialState)
  
-  }, [tomatoCount,cheeseCount, meatCount,lettuseount ])
-   const Total = (price, item , method) => {
+  const [totalAmount, setTotal] = useState(100)
+ 
+  const Total = (price, item , method) => {
     
     setTotal(price)
-    
     switch (method) {
       case "add":
         switch (item) {
           case "Meat":
-            setMeatCount(prev => prev +1)
+            dispatchMeat("increment")
             break;
           case "Lettuse":
-            setLettuseCount(prev => prev +1)
+            dispatchLettuse("increment")
             break;
           case "Cheese":
-            setCheeseount(prev => prev +1)
+            dispatchCheese("increment")
             break;
           case "Tomato":
-            setTomatoCount(prev => prev +1)
+            dispatchTomato("increment")
             break;
         
           default:
             break;
         }
         break;
-
-        case "remove":
-          switch (item) {
-            case "Meat":
-              setMeatCount(prev => prev -1)
-              break;
-            case "Lettuse":
-              setLettuseCount(prev => prev -1)
-              break;
-            case "Cheese":
-              setCheeseount(prev => prev -1)
-              break;
-            case "Tomato":
-              setTomatoCount(prev => prev -1)
-              break;
-          
-            default:
-              break;
-          }
-    
+      case "remove":
+        switch (item) {
+          case "Meat":
+            dispatchMeat("decrement")
+            break;
+          case "Lettuse":
+            dispatchLettuse("decrement")
+            break;
+          case "Cheese":
+            dispatchCheese("decrement")
+            break;
+          case "Tomato":
+            dispatchTomato("decrement")
+            break;
+        
+          default:
+            break;
+        }
+      break;
       default:
         break;
     }
    
-   }
+  }
 
 
  return (
     
     <div className="App">
-     
-      <div className='BurgerContent' style={{overflowY:"scroll"}}>
+     <div className='BurgerContent' style={{overflowY:"scroll"}}>
         <Stack spacing={2}  >
           <img src=  {top}  alt=""/>
 
           <BurgerFilling  name= "Tomato"  count= {tomatoCount} /> 
           <BurgerFilling name= "Cheese"  count= {cheeseCount} />
           <BurgerFilling name= "Meat"  count= {meatCount} />
-          <BurgerFilling name= "Lettuse"  count= {lettuseount} />
+          <BurgerFilling name= "Lettuse"  count= {lettuseCount} />
          
           <img src=  {bottom} alt=""/>
         </Stack>
