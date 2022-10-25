@@ -18,10 +18,8 @@ import BurgerFilling from './components/BurgerFilling';
 function App(props) {
   
   return (
-    
     <div className="App">
-     
-      <div className='BurgerContent' style={{overflowY:"scroll"}}>
+     <div className='BurgerContent' style={{overflowY:"scroll"}}>
         <Stack spacing={2}  >
           <img src=  {top}  alt=""/>
 
@@ -29,6 +27,7 @@ function App(props) {
           <BurgerFilling name= "Cheese"  count= {props.numOfCheese} />
           <BurgerFilling name= "Meat"  count= {props.numOfMeat} />
           <BurgerFilling name= "Lettuse"  count= {props.numOfLettuse} />
+
          
           <img src=  {bottom} alt=""/>
         </Stack>
