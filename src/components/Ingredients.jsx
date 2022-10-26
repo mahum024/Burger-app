@@ -3,18 +3,6 @@ import { Button } from '@mui/material';
 import { ButtonGroup } from '@mui/material';
 import { Box } from '@mui/material';
 
-const initialState = 0
-const reducer = (state, action) => {
-  switch (action) {
-    case "increment":
-      return state + 1
-    case "decrement":
-      return state-1
-    default:
-      return state
-    
-  }
-}
 export default function Ingredients(props){
  return (
     <div className='Ingredient'>
