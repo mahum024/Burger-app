@@ -4,6 +4,7 @@ import { ButtonGroup } from '@mui/material';
 import { Box } from '@mui/material';
 
 export default function Ingredients(props){
+ 
  return (
     <div className='Ingredient'>
       <div className='item'>{props.item} </div> 
